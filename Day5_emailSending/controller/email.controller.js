@@ -37,6 +37,12 @@ export const sendMail = async(req,res)=>{
     try {
         const {input, textArea  , email} = req.body;
         
+        if([input,textArea,email].some((fiels)=>{
+            if(fiels.trim()==""){
+                return res.status(400).json({
+                    message: "All fields are required"
+                })
+        }}))
         const newMail = await Mail.create({
             email,
             textArea,
